@@ -1,0 +1,22 @@
+{
+    "name": "yoast/yoast-doc-parser",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Team Yoast",
+            "email": "support@yoast.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "nikic/php-parser": "^4.3@dev",
+        "symfony/console": "^5.1@dev",
+        "symfony/finder": "^5.1@dev",
+        "phpdocumentor/reflection": " ~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YoastDocParser\\": "src/"
+        }
+    }
+}
