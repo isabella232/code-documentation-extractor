@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "ba9cf39999ac23b99824d9cce39c18bf87b42fff"
+                "reference": "88f3a669c12e576887dfded483e971d6c333adbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ba9cf39999ac23b99824d9cce39c18bf87b42fff",
-                "reference": "ba9cf39999ac23b99824d9cce39c18bf87b42fff",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/88f3a669c12e576887dfded483e971d6c333adbe",
+                "reference": "88f3a669c12e576887dfded483e971d6c333adbe",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-12-20T11:15:00+00:00"
+            "time": "2020-01-04T23:34:49+00:00"
         },
         {
             "name": "phpdocumentor/reflection",
@@ -64,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/Reflection.git",
-                "reference": "5c2bf460f903ace55202a8bfca30a1ada9724368"
+                "reference": "eb0c6080f901f6bd7200660aa3dcd461287a2173"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/Reflection/zipball/5c2bf460f903ace55202a8bfca30a1ada9724368",
-                "reference": "5c2bf460f903ace55202a8bfca30a1ada9724368",
+                "url": "https://api.github.com/repos/phpDocumentor/Reflection/zipball/eb0c6080f901f6bd7200660aa3dcd461287a2173",
+                "reference": "eb0c6080f901f6bd7200660aa3dcd461287a2173",
                 "shasum": ""
             },
             "require": {
@@ -105,7 +105,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2019-09-16T19:49:46+00:00"
+            "time": "2020-01-03T19:50:42+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -360,12 +360,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "84697598979dce859520da30c7f8f007fa9aaf6a"
+                "reference": "dbf48f2182a2e88d47e311b4e9ae76083be5decb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/84697598979dce859520da30c7f8f007fa9aaf6a",
-                "reference": "84697598979dce859520da30c7f8f007fa9aaf6a",
+                "url": "https://api.github.com/repos/symfony/console/zipball/dbf48f2182a2e88d47e311b4e9ae76083be5decb",
+                "reference": "dbf48f2182a2e88d47e311b4e9ae76083be5decb",
                 "shasum": ""
             },
             "require": {
@@ -428,7 +428,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-12-28T15:12:20+00:00"
+            "time": "2020-01-04T14:20:45+00:00"
         },
         {
             "name": "symfony/finder",
@@ -436,12 +436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "e5a32666a90512c6a366a49c00e0c011e3cd563b"
+                "reference": "e028fa0d457591ccd584674f39622df411e9c766"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/e5a32666a90512c6a366a49c00e0c011e3cd563b",
-                "reference": "e5a32666a90512c6a366a49c00e0c011e3cd563b",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/e028fa0d457591ccd584674f39622df411e9c766",
+                "reference": "e028fa0d457591ccd584674f39622df411e9c766",
                 "shasum": ""
             },
             "require": {
@@ -477,7 +477,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-21T07:02:52+00:00"
+            "time": "2020-01-04T14:20:45+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -660,12 +660,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "144c5e51266b281231e947b51223ba14acf1a749"
+                "reference": "ac2466b187c8836b559155d5a041050303f309c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/144c5e51266b281231e947b51223ba14acf1a749",
-                "reference": "144c5e51266b281231e947b51223ba14acf1a749",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/ac2466b187c8836b559155d5a041050303f309c6",
+                "reference": "ac2466b187c8836b559155d5a041050303f309c6",
                 "shasum": ""
             },
             "require": {
@@ -710,7 +710,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-11-18T17:27:11+00:00"
+            "time": "2020-01-04T14:08:26+00:00"
         },
         {
             "name": "webmozart/assert",

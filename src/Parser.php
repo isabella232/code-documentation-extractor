@@ -5,20 +5,19 @@ use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\File\LocalFile;
 use phpDocumentor\Reflection\Php\Factory\Argument;
 use phpDocumentor\Reflection\Php\Factory\Class_;
-use phpDocumentor\Reflection\Php\Factory\Constant;
+use phpDocumentor\Reflection\Php\Factory\ClassConstant;
 use phpDocumentor\Reflection\Php\Factory\DocBlock;
 use phpDocumentor\Reflection\Php\Factory\File;
+use phpDocumentor\Reflection\Php\Factory\GlobalConstant;
 use phpDocumentor\Reflection\Php\Factory\Interface_;
 use phpDocumentor\Reflection\Php\Factory\Property;
 use phpDocumentor\Reflection\Php\Factory\Trait_;
 use phpDocumentor\Reflection\Php\NodesFactory;
 use phpDocumentor\Reflection\Php\ProjectFactory;
 use phpDocumentor\Reflection\PrettyPrinter;
-use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use RuntimeException;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\SplFileInfo;
 use YoastDocParser\Factories\Function_;
 use YoastDocParser\Factories\Method;
 use YoastDocParser\Helpers\FileHelper;
@@ -108,7 +107,8 @@ class Parser {
 		$factory = new ProjectFactory( [
 			new Argument(new PrettyPrinter()),
 			new Class_(),
-			new Constant(new PrettyPrinter()),
+			new GlobalConstant(new PrettyPrinter()),
+			new ClassConstant(new PrettyPrinter()),
 			new DocBlock( DocBlockFactory::createInstance() ),
 			new File( NodesFactory::createInstance() ),
 			new Function_( new \phpDocumentor\Reflection\Php\Factory\Function_() ),
@@ -130,6 +130,8 @@ class Parser {
 			count( $files ),
 			( $end - $start )
 		) );
+
+		var_dump($project);
 	}
 
 	protected function findPluginData() {
