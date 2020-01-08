@@ -18,10 +18,8 @@ class ParseCommand extends Command {
 	protected static $defaultName = 'parse';
 
 	/**
-	 * @var string
+	 * Configures the command.
 	 */
-	private $directory;
-
 	protected function configure() {
 		$this->setDescription( 'Runs the parser.' )
 			 ->setHelp( 'This command runs the parser.' );
@@ -30,6 +28,14 @@ class ParseCommand extends Command {
 		$this->addOption( 'directory', '-d', InputOption::VALUE_OPTIONAL, 'The plugin directory', '' );
 	}
 
+	/**
+	 * Executes the command.
+	 *
+	 * @param InputInterface  $input The input handler to use.
+	 * @param OutputInterface $output The output handler to use.
+	 *
+	 * @return int The exit code.
+	 */
 	protected function execute( InputInterface $input, OutputInterface $output ) {
 		$directory = $input->getOption( 'directory' );
 		$helper = $this->getHelper( 'question' );

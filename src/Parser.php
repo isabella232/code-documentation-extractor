@@ -68,19 +68,20 @@ class Parser {
 	 * @var string
 	 */
 	private $directory;
+
 	/**
 	 * @var OutputInterface
 	 */
-	private $outputter;
+	private $output;
 
 	/**
 	 * Parser constructor.
 	 *
-	 * @param string               $directory The directory to parse.
+	 * @param string          $directory The directory to parse.
 	 *
-	 * @param OutputInterface $outputter
+	 * @param OutputInterface $output 	 The OutputInterface to send user-facing messages to.
 	 */
-	public function __construct( string $directory, OutputInterface $outputter ) {
+	public function __construct( string $directory, OutputInterface $output ) {
 		if ( ! is_dir( $directory ) ) {
 			throw new Error( 'The passed directory is invalid.' );
 		}
@@ -90,19 +91,20 @@ class Parser {
 
 		$this->files = $files;
 
-		$this->parser = ( new ParserFactory() )->create( ParserFactory::PREFER_PHP5 );
+		$this->parser = ( new ParserFactory() )
+			->create( ParserFactory::PREFER_PHP5 );
 
-		$this->outputter = $outputter;
+		$this->output = $output;
 	}
 
 	/**
-	 * @throws \phpDocumentor\Reflection\Exception
+	 * Parses the collected files.
 	 */
 	public function parse() {
 		// First attempt to collect plugin data.
 		$this->pluginData = $this->findPluginData();
 
-		$this->outputter->writeln( 'Successfully found plugin data' );
+		$this->output->writeln( 'Successfully found plugin data' );
 
 		$factory = new ProjectFactory( [
 			new Argument(new PrettyPrinter()),
@@ -126,14 +128,19 @@ class Parser {
 		$project = $factory->create( 'YoastSEO', $files );
 		$end     = microtime( true );
 
-		$this->outputter->writeln( sprintf( 'Parsed %d files in %s seconds',
+		$this->output->writeln( sprintf( 'Parsed %d files in %s seconds',
 			count( $files ),
 			( $end - $start )
 		) );
-
-		var_dump($project);
 	}
 
+	/**
+	 * Finds WordPress plugin data.
+	 *
+	 * @return NullPlugin|WordPress\Plugin The found plugin.
+	 *
+	 * @throws RuntimeException
+	 */
 	protected function findPluginData() {
 		if ( ! empty( $this->pluginData ) ) {
 			throw new RuntimeException( 'Plugin data already set. You cannot set this data twice.' );

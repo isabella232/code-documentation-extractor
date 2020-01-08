@@ -13,8 +13,11 @@ use Webmozart\Assert\Assert;
  * Class BaseHookTag
  * @package YoastDocParser\Tags
  */
-class BaseHookTag extends BaseTag implements StaticMethod {
+abstract class BaseHookTag extends BaseTag implements StaticMethod {
 
+	/**
+	 * @var string
+	 */
 	protected $name = '';
 
 	/** @var string[][] */
@@ -26,7 +29,7 @@ class BaseHookTag extends BaseTag implements StaticMethod {
 	/**
 	 * @var string
 	 */
-	private $itemName;
+	private $tagName;
 
 	/**
 	 * @var bool
@@ -34,25 +37,23 @@ class BaseHookTag extends BaseTag implements StaticMethod {
 	private $isDeprecated;
 
 	/**
-	 * @param string    $name The name of the tag.
-	 * @param string    $itemName
-	 * @param mixed[][] $arguments
+	 * Constructs the BaseHookTag.
 	 *
-	 * @param Doc|null  $description
-	 *
-	 * @param bool      $isDeprecated
-	 *
-	 * @psalm-param array<int, array<string, string|Type>|string> $arguments
+	 * @param string    $name         The name of the tag.
+	 * @param string    $tagName      The tag's name.
+	 * @param mixed[][] $arguments    The tag's arguments.
+	 * @param Doc|null  $description  The tag's description.
+	 * @param bool      $isDeprecated Whether or not the tag is deprecated.
 	 */
 	public function __construct(
 		string $name,
-		string $itemName,
+		string $tagName,
 		array $arguments = [],
 		?Doc $description = null,
 		bool $isDeprecated = false
 	) {
 		Assert::stringNotEmpty( $name );
-		Assert::stringNotEmpty( $itemName );
+		Assert::stringNotEmpty( $tagName );
 
 		$returnType = null; // TODO parse this via regex?
 
@@ -60,11 +61,11 @@ class BaseHookTag extends BaseTag implements StaticMethod {
 			$returnType = new Void_();
 		}
 
-		$this->name = $name;
-		$this->itemName = $itemName;
-		$this->arguments   = $arguments;
-		$this->returnType  = $returnType;
-		$this->description = $description;
+		$this->name         = $name;
+		$this->tagName      = $tagName;
+		$this->arguments    = $arguments;
+		$this->returnType   = $returnType;
+		$this->description  = $description;
 		$this->isDeprecated = $isDeprecated;
 	}
 
@@ -75,11 +76,25 @@ class BaseHookTag extends BaseTag implements StaticMethod {
 		// TODO: Implement create() method.
 	}
 
+	/**
+	 * Gets the tag's name.
+	 *
+	 * @return string The tag's name.
+	 */
 	public function __toString(): string {
-		return $this->itemName;
+		return $this->tagName;
 	}
 
-	public static function fromNode( Node $node, Doc $lastDoc = null, bool $isDeprecated = false ) {
+	/**
+	 * Creates a new instance of the tag.
+	 *
+	 * @param Node     $node         The node to base the new tag on.
+	 * @param Doc|null $description  The documentation associated with the node.
+	 * @param bool     $isDeprecated Whether or not the node is deprecated.
+	 *
+	 * @return static The new instance.
+	 */
+	public static function fromNode( Node $node, Doc $description = null, bool $isDeprecated = false ) {
 		$printer = new PrettyPrinter();
 
 		$args = array_map( function( $arg ) { return $arg; }, $node->args );
@@ -89,7 +104,7 @@ class BaseHookTag extends BaseTag implements StaticMethod {
 		return new static(
 			$printer->prettyPrintExpr( $node->args[0]->value ),
 			$args,
-			$lastDoc,
+			$description,
 			$isDeprecated
 		);
 	}

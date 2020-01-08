@@ -27,6 +27,13 @@ class HooksHelper {
 		],
 	];
 
+	/**
+	 * Gets the name of the passed node.
+	 *
+	 * @param Node $node The node to get the name from.
+	 *
+	 * @return string The name of the node.
+	 */
 	public static function getName( Node $node ) {
 		if ( $node->name->getType() !== 'Name' ) {
 			return '';
@@ -36,11 +43,11 @@ class HooksHelper {
 	}
 
 	/**
-	 * Determines whether or not the passed node is a filter.
+	 * Determines whether or not the passed node is a hook.
 	 *
 	 * @param Node $node The node to check.
 	 *
-	 * @return bool Whether or not it's a filter.
+	 * @return bool Whether or not it's a hook.
 	 */
 	public static function isHook( Node $node ) {
 		$name = self::getName( $node );
@@ -57,14 +64,35 @@ class HooksHelper {
 		);
 	}
 
+	/**
+	 * Determines whether or not the passed node is a filter.
+	 *
+	 * @param Node $node The node to check.
+	 *
+	 * @return bool Whether or not it's a filter.
+	 */
 	public static function isFilter( $node ) {
 		return self::isHook( $node ) && in_array( self::getName( $node ), self::$hookFunctions['filters'], true );
 	}
 
+	/**
+	 * Determines whether or not the passed node is an action.
+	 *
+	 * @param Node $node The node to check.
+	 *
+	 * @return bool Whether or not it's an action.
+	 */
 	public static function isAction( $node ) {
 		return self::isHook( $node ) && in_array( self::getName( $node ), self::$hookFunctions['actions'], true );
 	}
 
+	/**
+	 * Extracts hooks from the passed object.
+	 *
+	 * @param FunctionLike $object The object to extract the hooks from.
+	 *
+	 * @return array The extracted hooks.
+	 */
 	public static function extractHooks( FunctionLike $object ) {
 		// Possibly dealing with an abstract method.
 		if ( $object->getStmts() === null ) {

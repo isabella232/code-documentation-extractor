@@ -10,14 +10,14 @@ use Webmozart\Assert\Assert;
 class Filter extends BaseHookTag {
 
 	/**
-	 * @param string    $filterName
-	 * @param mixed[][] $arguments
+	 * Filter constructor.
 	 *
-	 * @param Doc|null  $description
+	 * @param string    $filterName The filter's name.
+	 * @param mixed[][] $arguments The filter's arguments.
 	 *
-	 * @param bool $isDeprecated
+	 * @param Doc|null  $description The filter's description.
 	 *
-	 * @psalm-param array<int, array<string, string|Type>|string> $arguments
+	 * @param bool $isDeprecated Whether or not the filter is flagged as deprecated.
 	 */
 	public function __construct(
 		string $filterName,

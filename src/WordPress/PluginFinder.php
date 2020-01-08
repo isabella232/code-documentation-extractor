@@ -8,6 +8,9 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class PluginFinder {
 
+	/**
+	 * @var array
+	 */
 	private $headers = [
 		'Name'        => 'Plugin Name',
 		'PluginURI'   => 'Plugin URI',
@@ -22,6 +25,9 @@ class PluginFinder {
 		'RequiresPHP' => 'Requires PHP',
 	];
 
+	/**
+	 * @var array|IteratorAggregate
+	 */
 	private $files;
 
 	/**
@@ -42,17 +48,17 @@ class PluginFinder {
 		$plugin = new NullPlugin();
 
 		foreach ( $this->files as $file ) {
-			$plugin_data = $this->collectPluginData( $file );
+			$pluginData = $this->collectPluginData( $file );
 
-			if ( ! empty( $plugin_data['Name'] ) ) {
+			if ( ! empty( $pluginData['Name'] ) ) {
 				$plugin = new Plugin(
-					$plugin_data['Name'],
-					$plugin_data['PluginURI'],
-					$plugin_data['Version'],
-					$plugin_data['Description'],
-					new Author( $plugin_data['Author'], $plugin_data['AuthorURI'] ),
-					new Textdomain( $plugin_data['TextDomain'], $plugin_data['DomainPath'] ),
-					$plugin_data['Network']
+					$pluginData['Name'],
+					$pluginData['PluginURI'],
+					$pluginData['Version'],
+					$pluginData['Description'],
+					new Author( $pluginData['Author'], $pluginData['AuthorURI'] ),
+					new Textdomain( $pluginData['TextDomain'], $pluginData['DomainPath'] ),
+					$pluginData['Network']
 				);
 				break;
 			}
@@ -61,24 +67,47 @@ class PluginFinder {
 		return $plugin;
 	}
 
+	/**
+	 * Collects the plugin data from the passed file.
+	 *
+	 * @param SplFileInfo $file The file to collect the data fromm
+	 *
+	 * @return array The plugin data. Can be an empty array if the file isn't considered a valid plugin file.
+	 */
 	protected function collectPluginData( SplFileInfo $file ) {
 		$pluginData = [];
+		$fileContents = $file->getContents();
 
-		foreach ( $this->headers as $field => $regex ) {
-			$pluginData[ $field ] = $this->getPluginData( $file->getContents(), $regex );
+		foreach ( $this->headers as $field => $header ) {
+			$pluginData[ $field ] = $this->extractHeaderData( $fileContents, $header );
 		}
 
 		return $pluginData;
 	}
 
-	protected function getPluginData( $file_data, $regex ) {
-		if ( preg_match( '/^[ \t\/*#@]*' . preg_quote( $regex, '/' ) . ':(.*)$/mi', $file_data, $match ) && $match[1] ) {
+	/**
+	 * Extracts the data from the passed file contents based on the passed header.
+	 *
+	 * @param string $fileContents 	The content to extract the plugin data from.
+	 * @param string $header 		The header to match against.
+	 *
+	 * @return string The extracted data.
+	 */
+	protected function extractHeaderData( $fileContents, $header ) {
+		if ( preg_match( '/^[ \t\/*#@]*' . preg_quote( $header, '/' ) . ':(.*)$/mi', $fileContents, $match ) && $match[1] ) {
 			return $this->cleanup( $match[1] );
 		}
 
 		return '';
 	}
 
+	/**
+	 * Cleans up any stray spaces and other characters from the passed string.
+	 *
+	 * @param string $string The string to clean up.
+	 *
+	 * @return string The cleaned string.
+	 */
 	protected function cleanup( string $string ) {
 		return trim( preg_replace( '/\s*(?:\*\/|\?>).*/', '', $string ) );
 	}
